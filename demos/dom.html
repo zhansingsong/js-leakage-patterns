@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dom-Leakage</title>
+</head>
+<body>
+  <input type="button" value="remove" class="remove">
+  <input type="button" value="add" class="add">
+
+  <div class="container">
+    <pre class="wrapper"></pre>
+  </div>
+  <script>
+    // 因为要多次用到<pre>节点，将其缓存到本地变量wrapper中，
+    var wrapper = document.querySelector('.wrapper');
+    var counter = 0;
+
+    document.querySelector('.remove').addEventListener('click', function () {
+      document.querySelector('.container').removeChild(wrapper);
+      wrapper = null;//在执行删除操作时，将wrapper对pre节点的引用释放掉
+    }, false);
+
+    document.querySelector('.add').addEventListener('click', function () {
+      wrapper.appendChild(document.createTextNode('\t' + ++counter + '：a new line text\n'));
+    }, false);
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Leaker</title>
+</head>
+
+<body>
+  <input type="button" value="click">
+  <script>
+    !function () {
+      function Leaker() {
+        this.init();
+      };
+      Leaker.prototype = {
+        init: function () {
+          this.name = (Array(100000)).join('*');
+          // console.log("Leaking an object %o: %o", (new Date()), this);// this对象不能被回收
+        },
+
+        destroy: function () {
+          // do something....
+        }
+      };
+      document.querySelector('input').addEventListener('click', function () {
+        new Leaker();
+      }, false);
+    }()
+  </script>
+</body>
+
+</html>

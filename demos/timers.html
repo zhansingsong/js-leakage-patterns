@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Timer</title>
+</head>
+<body>
+  <input type="button" value="click" class="click">
+  <input type="button" value="clear" class="clear">
+  <script>
+    var timer;
+    document.querySelector('input.click').addEventListener('click', function(){
+      timer=setInterval(function(){console.log('vvv')}, 0);
+    }, false);
+    document.querySelector('input.clear').addEventListener('click', function(){
+      clearInterval(timer);
+    }, false);
+  </script>
+</body>
+</html>
