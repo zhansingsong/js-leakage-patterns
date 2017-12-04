@@ -50,7 +50,7 @@ IE6-7中管理DOM对象的垃圾回收器是基于引用计数策略，如果DOM
 ## 为什么DOM的垃圾回收器是基于引用计数策略？
 IE中有一部分对象并不是原生js对象。例如，其内存泄露DOM和BOM中的对象就是使用C++以COM(component object model，组件对象模型)对象的形式实现的，而COM对象的垃圾回收机制采用的就是引用计数策略。因此，即使IE的js引擎采用标记清除策略来实现，但js访问的COM对象依然是基于引用计数策略的。换句话说，只要在IE中涉及COM对象，就会存在循环引用的问题。在IE9把BOM和DOM对象转换为真正的js对象。
 
-除了低版本的IE外，在低版本的Firefox(如Firefox3.0)中也存在类似问题。Firefox也是通过自己的XPCOM来管理DOM，与Windows的COM类似，Mozilla的XPCOM也是基于引用计数策略。
+除了低版本的IE外，在低版本的Firefox(如Firefox3.0)中也存在类似问题。Firefox通过自己的XPCOM来管理DOM，与Windows的COM类似，Mozilla的XPCOM也是基于引用计数策略。
  
 ## 如何避免及修复？
 循环引用是导致低版本IE和Firefox浏览器内存泄露的真正原因，因此最直接的方法是避免在DOM和JS之间创建相互引用。确保总是JS对象单向引用DOM对象，或DOM对象单向引用JS对象。虽然说起来简单，但实际情况是很难做到的。那如何修复循环引用就很重要了，可以维护一个存在循环引用DOM对象的队列，在页面unload时，做如下处理：
