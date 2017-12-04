@@ -11,11 +11,10 @@ C、C++语言需要手动管理内存的分配与释放（常用方法：malloc(
 
 ![lifecycle](./images/life-cycle.png)
 
-虽然内存自动进行分配、释放，但并不意味着开发者不需要关注内存管理。因为一些不好的编码会导致[内存泄露](https://en.wikipedia.org/wiki/Memory_leak#Reference_counting_and_cyclic_references)，即应用程序不再需要的内存没有被释放掉。因此了解内存管理是很重要的
+虽然垃圾回收器能能自动管理内存分配、释放，但并不意味着开发者不再需要关注内存管理。因为一些不好的编码会导致[内存泄露](https://en.wikipedia.org/wiki/Memory_leak#Reference_counting_and_cyclic_references)，即应用程序不再需要的内存没有被释放掉。因此了解内存管理是很重要的。
 
 
 ## Javascript中的内存分配
-
 
 当声明变量时，JavaScript会自动为变量分配内存
 ```js
@@ -27,7 +26,7 @@ function f(a) {
   return a + 2;
 } // 为函数分配内存 
 ```
-当内存不再需要时，会自动释放掉。内存泄露和在释放内存时出现的大部分与内存相关的问题，而要找出那些被垃圾回收器跟踪不再需要的而又没有被释放的内存是很困难的。
+~~当内存不再需要时，会自动释放掉。内存泄露和在释放内存时出现的大部分与内存相关的问题，而要找出那些被垃圾回收器跟踪不再需要的而又没有被释放的内存是很困难的。~~
 
 ## GC(Garbage collection)
 垃圾回收是追踪并释放应用程序不再使用的内存过程。垃圾回收器通过算法来实现追踪应用程序不再使用的内存。主要涉及的垃圾回收算法如下：
@@ -40,7 +39,7 @@ function f(a) {
 
 ```js
 !function (){
-  var o1 = {a: {b: 2}},// 两个对象被创建A:{a: {b: 2}}，B:{b: 2}，对象B被对象A的属性a引用，对象A被赋值给变量o1。A和B的引用数都为1，因此不能被回收。
+  var o1 = {a: {b: 2}},// 两个对象被创建。假如分别用A:{a: {b: 2}}，B:{b: 2}表示，对象B被对象A的属性a引用，对象A被赋值给变量o1。A和B的引用数都为1，因此不能被回收。
       o2 = o1; // 将对象A赋给变量o2。此时A引用数为2，B引用数1。
       o1 = 1;// 将变量o1对对象A引用切断。此时A引用数为1，B引用数1。
   var oa = o2.a; // 将对象B赋值给变量oa。此时A引用数为1，B引用数2。
@@ -67,9 +66,9 @@ f();
 ![cycle](./images/cycle.png)
 
 
-#### 常见问题实例
+#### 常见问题
 
-  IE6-7的DOM对象是基于计数引用算法进行垃圾回收的。而循环引用通常会导致内存泄露：
+IE6-7的DOM对象是基于计数引用算法进行垃圾回收的。而循环引用通常会导致内存泄露：
 
 ```js
 var div;
@@ -79,13 +78,13 @@ window.onload = function() {
   div.lotsOfData = new Array(10000).join('*');
 };
 ```
-如上述实例，DOM元素div通过自身的“circularReference”属性循环引用自己。如果没有显式将该属性删除或设为null，计数引用垃圾回收器会始终持有至少一个引用。即使DOM元素从DOM树种移除，DOM元素的内存会一直存在。如果DOM元素持有一些数据（如实例中“lotsData”属性），该数据对应的内存也无法被释放。
+如上述实例，DOM元素div通过自身的“circularReference”属性循环引用自己。如果没有显式将该属性删除或设为null，计数引用垃圾回收器会始终持有至少一个引用。即使DOM元素从DOM树种移除，DOM元素的内存会一直存在。如果DOM元素持有一些数据（如实例中“lotsData”属性），该数据对应的内存也无法被释放。[了解更多参考--->IE<8循环引用导致的内存泄露](https://github.com/zhansingsong/js-leakage-patterns/blob/master/IE%3C8%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8%E5%AF%BC%E8%87%B4%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/IE%3C8%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8%E5%AF%BC%E8%87%B4%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2.md)
 
 
 ### Mark-and-sweep algorithm（标记清除）
 
 该算法将“对象不再需要”的定义简化为“对象不可到达”。
-这个算法假设有一组被称为roots的对象（在JavaScript中，root就是全局对象）。垃圾回收器会定期地从这些roots开始，查找所有从根开始引用的对象，然后查找这些对象引用的对象……。从roots开始，垃圾回收器会查找所有可到达对象，并回收不可到达的对象。
+这个算法假设有一组被称为roots的对象（在JavaScript中，root就是全局对象）。垃圾回收器会定期地从这些roots开始，查找所有从根开始引用的对象，然后再查找这些对象引用的对象……。从roots开始，垃圾回收器会查找所有可到达对象，并回收不可到达的对象。
 
 为了确定对象是否需要，该算法要确定对象是否可到达。由如下步骤组成：
 
@@ -96,15 +95,16 @@ window.onload = function() {
 ![](./images/mark-sweep.gif)
 
 
-这个算法比引用计数算法更优，因为“零引用的对象”总是不可到达的，但反之则不一定，如循环引用。
-截至2012年，所有现代浏览器都内置了**标记清除垃圾回收器**。在过去几年里所有对JavaScript垃圾回收的改进（[generational/incremental/concurrent/parallel garbage collection](http://www.memorymanagement.org/glossary/g.html#term-generational-garbage-collection)）都是基于**标记清除算法**来实现的，并没有改变**标记清除算法**本身和它对“对象不再需要”定义的简化。
+这个算法比引用计数算法更优，因为对于引用计数算法“零引用的对象”总是不可到达的，但反之则不一定，如循环引用。而**标记清除算法**不存在循环引用的问题。
+
+截至2012年，所有现代浏览器都内置了**标记清除垃圾回收器**。在过去几年里所有对JavaScript垃圾回收算法的改进（[generational/incremental/concurrent/parallel garbage collection](http://www.memorymanagement.org/glossary/g.html#term-generational-garbage-collection)）都是基于**标记清除算法**来实现的，但并没有改变**标记清除算法**本身和它对“对象不再需要”定义的简化。
 
 #### 循环引用不再是问题
 前面循环引用的实例中，在函数执行完后，两个对象不再被全局对象可访问的对象引用。因此这两个对象被垃圾回收器标记为不可到达，接着被回收掉。
 ![](./images/no-cycle.png)
 
 #### 限制：需要明确无法到达的对象
-尽管这是一个限制，但实践中很少遇见这种情况，所以开发者不太会去关心垃圾回收机制。
+对于这个限制，实践中很少遇见，所以开发者不太会去关心垃圾回收机制。
 
 
 ## 参考文章：
