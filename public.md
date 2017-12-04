@@ -2,6 +2,8 @@
 
 > 这是关于JavaScript内存泄露相关的序列文章中一篇。由于时间有限更新进度会有点慢，但会持续更新的。自己也在学习中，难免对某些知识点的理解不是很正确，所以才将文章放置[github](https://github.com/zhansingsong/js-leakage-patterns/blob/master/README.md)上，一是想与大家分享，二是方便持续更新，三是便于实时修正错误点。也希望看本文的各位同学能多提issues，我会根据提的意见不断完善文章。最后希望各位能从文章中有所收获----->🎉 enjoy reading, enjoy life 🐳
 
+ > ### ⛔[最新内容请以github上的为准](https://github.com/zhansingsong/js-leakage-patterns)
+
 ### 序列文章链接
 
 - [JavaScript内存那点事](https://github.com/zhansingsong/js-leakage-patterns/blob/master/JavaScript%E5%86%85%E5%AD%98%E9%82%A3%E7%82%B9%E4%BA%8B/JavaScript%E5%86%85%E5%AD%98%E9%82%A3%E7%82%B9%E4%BA%8B.md)
@@ -114,7 +116,7 @@ function foo(arg) {
 ```
 这里结合Chrome的Devtools–>Performance做一些分析，操作步骤如下：
 
-<u>**:warning:注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
+<u>**⚠️注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
 
 1. 开启【Performance】项的记录
 2. 执行一次CG，创建基准参考线
@@ -216,7 +218,7 @@ bar()// 返回 'hello closure!'
 ```
 这里结合Chrome的Devtools->Memory工具进行分析，操作步骤如下：
 
-<u>**:warning:注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
+<u>**⚠️注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
 
 1. 选中【Record allocation timeline】选项
 2. 执行一次CG
@@ -313,7 +315,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 ```
 这里结合Chrome浏览器的Devtools–>Performance做一些分析，操作步骤如下：
 
-<u>**:warning:注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
+<u>**⚠️注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
 
 1. 开启【Performance】项的记录
 2. 执行一次CG，创建基准参考线
@@ -326,7 +328,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 
 从分析结果图可知，虽然6次add操作增加6个Node，但是remove操作并没有让Nodes节点数下降，即remove操作失败。尽管还主动执行了一次CG操作，Nodes曲线也没有下降。因此可以断定内存泄露了！那问题来了，如何去查找问题的原因呢？这里可以通过Chrome浏览器的Devtools–>Memory进行诊断分析，执行如下操作步骤：
 
-<u>**:warning:注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
+<u>**⚠️注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
 
 1. 选中【Take heap snapshot】选项
 2. 连续单击【add】按钮6次，增加6个文本节点到pre元素中
@@ -539,7 +541,7 @@ setTimeout(function() {
 ```
 页面是存在问题的，这里结合Devtools–>Performance分析一下问题所在，操作步骤如下：
 
-<u>**:warning:注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
+<u>**⚠️注：最好在隐藏窗口中进行分析工作，避免浏览器插件影响分析结果**</u>
 
 1. 开启Performance项的记录
 2. 执行一次CG，创建基准参考线
