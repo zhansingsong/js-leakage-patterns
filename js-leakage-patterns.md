@@ -1,6 +1,6 @@
 # 常见的JavaScript内存泄露
 
-![](./head.jpg)
+![](./images/head.jpg)
 ## 什么是内存泄露
 > **内存泄漏**指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失去了对该段内存的控制，从而造成了内存的浪费。
 >内存泄漏通常情况下只能由获得程序源代码的程序员才能分析出来。然而，有不少人习惯于把任何不需要的内存使用的增加描述为内存泄漏，即使严格意义上来说这是不准确的。
@@ -59,7 +59,7 @@ function foo(arg) {
 
 在传递给`console.log`的对象是不能被垃圾回收 ♻️，因为在代码运行之后需要在开发工具能查看对象信息。所以最好不要在生产环境中`console.log`任何对象。
 
-### 实例------>[demos/log.html](./demos/log.html)
+### 实例------>[demos/log.html](./images/demos/log.html)
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -107,7 +107,7 @@ function foo(arg) {
 4. 执行一次CG
 5. 停止记录
 
-![](./console_1.png)
+![](./images/console_1.png)
 
 可以看出【JS Heap】线最后没有降回到基准参考线的位置，显然存在没有被回收的内存。如果将代码修改为：
 
@@ -132,7 +132,7 @@ function foo(arg) {
 ```
 去掉`console.log("Leaking an object %o: %o", (new Date()), this);`语句。重复上述的操作步骤，分析结果如下：
 
-![](./console_1.png)
+![](./images/console_2.png)
 
 从对比分析结果可知，`console.log`打印的对象是不会被垃圾回收器回收的。因此最好不要在页面中`console.log`任何大对象，这样可能会影响页面的整体性能，特别在生产环境中。除了`console.log`外，另外还有`console.dir`、`console.error`、`console.warn`等都存在类似的问题，这些细节需要特别的关注。
 
@@ -157,7 +157,7 @@ bar()// 返回 'hello closure!'
 
 <u>**由于闭包会携带包含它的函数的作用域，因此会比其他函数占用更多的内存。过度使用闭包可能会导致内存占用过多。**</u>
 
-### 实例------>[demos/closures.html](./demos/closures.html)
+### 实例------>[demos/closures.html](./images/demos/closures.html)
 
 ```html
 <!DOCTYPE html>
@@ -209,15 +209,15 @@ bar()// 返回 'hello closure!'
 3. 连续单击【click】按钮十多次
 4. 停止记录堆分析
 
-![closure](./closure1.png)
+![closure](./images/closure1.png)
 
 上图中蓝色柱形条表示随着时间新分配的内存。选中其中某条蓝色柱形条，过滤出对应新分配的对象：
 
-![closure](./closure2.png)
+![closure](./images/closure2.png)
 
 查看对象的详细信息：
 
-![closure](./closure3.png)
+![closure](./images/closure3.png)
 
 从图可知，在返回的闭包作用链(Scopes)中携带有它所在函数的作用域，作用域中还包含一个str字段。而str字段并没有在返回getData()中使用过。为什么会存在在作用域中，按理应该被GC回收掉的？
 
@@ -248,11 +248,11 @@ bar()// 返回 'hello closure!'
 
 getData()和unused()内部函数共享f函数对应的变量对象，因为unused()内部函数访问了f作用域内str变量，所以str字段存在于f变量对象中。加上getData()内部函数被返回，被其他对象引用，形成了闭包，因此对应的f变量对象存在于闭包函数的作用域链中。这里只要将函数unused中`str = 'unused: ' + str;`语句删除便可解决问题。
 
-![closure](./closure4.png)
+![closure](./images/closure4.png)
 
 查看一下闭包信息：
 
-![closure](./closure5.png)
+![closure](./images/closure5.png)
 
 ## DOM泄露
 
@@ -262,7 +262,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 
 为了减少DOM访问次数，一般情况下，当需要多次访问同一个DOM方法或属性时，会将DOM引用缓存到一个局部变量中。<u>但如果在执行某些删除、更新操作后，可能会忘记释放掉代码中对应的DOM引用，这样会造成DOM内存泄露。</u>
 
-### 实例------>[demos/dom.html](./demos/dom.html)
+### 实例------>[demos/dom.html](./images/demos/dom.html)
 
 ```html
 <!DOCTYPE html>
@@ -307,7 +307,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 5. 执行一次CG
 6. 停止记录堆分析
 
-![dom](./dom1.png)
+![dom](./images/dom1.png)
 
 从分析结果图可知，虽然6次add操作增加6个Node，但是remove操作并没有让Nodes节点数下降，即remove操作失败。尽管还主动执行了一次CG操作，Nodes曲线也没有下降。因此可以断定内存泄露了！那问题来了，如何去查找问题的原因呢？这里可以通过Chrome浏览器的Devtools–>Memory进行诊断分析，执行如下操作步骤：
 
@@ -320,7 +320,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 5. 单击【Take snapshot】按钮，执行一次堆快照
 6. 选中生成的第二个快照报告，并将视图由"Summary"切换到"Comparison"对比模式，在[class filter]过滤输入框中输入关键字Detached
 
-![dom](./dom2.png)
+![dom](./images/dom2.png)
 
 从分析结果图可知，导致整个pre元素和6个文本节点无法别回收的原因是：代码中存在全局变量`wrapper`对pre元素的引用。知道了产生的问题原因，便可对症下药了。对代码做如下就修改：
 
@@ -340,9 +340,9 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 ```
 在执行删除操作时，将wrapper对pre节点的引用释放掉，即在删除逻辑中增加`wrapper = null;`语句。再次在Devtools–>Performance中重复上述操作：
 
-![dom](./dom3.png)
+![dom](./images/dom3.png)
 
-### 小试牛刀------>[demos/dom_practice.html](./demos/dom_practice.html)
+### 小试牛刀------>[demos/dom_practice.html](./images/demos/dom_practice.html)
 
 再来看看网上的一个实例，代码如下：
 
@@ -377,7 +377,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 
 整个过程如下图所演示：
 
-![](./memory.gif)
+![](./images/memory.gif)
 
 有兴趣的同学可以使用Chrome的Devtools工具，验证一下分析结果，实践很重要~~~
 
@@ -395,7 +395,7 @@ setTimeout(function() {
 
 如果在不需要`setInterval()`时，没有通过`clearInterval()`方法移除，那么`setInterval()`会不停地调用函数，直到调用`clearInterval()`或窗口关闭。如果链式`setTimeout()`调用模式没有给出终止逻辑，也会一直运行下去。因此再不需要重复定时器时，确保对定时器进行清除，避免占用系统资源。另外，在使用`setInterval()`和`setTimeout()`来实现动画时，无法确保定时器按照指定的时间间隔来执行动画。为了能在JavaScript中创建出平滑流畅的动画，浏览器为JavaScript动画添加了一个新API-requestAnimationFrame()。[关于setInterval、setTimeout与requestAnimationFrame实现动画上的区别➹猛击😊](http://123fe.cn/2017/11/23/requestAnimationFrame/)
 
-### 实例------>[demos/timers.html](./demos/timers.html)
+### 实例------>[demos/timers.html](./images/demos/timers.html)
 
 如下通过`setInterval()`实现一个clock的小实例，不过代码存在问题的，有兴趣的同学可以先尝试找一下问题的所在~~~~~😎
 操作：
@@ -447,7 +447,7 @@ setTimeout(function() {
 
 输出结果:
 
-![](./setinterval.png)
+![](./images/setinterval.png)
 
 针对暴露出的问题，对代码做如下修改：
 
@@ -485,7 +485,7 @@ setTimeout(function() {
 
 做移动开发时，需要对不同设备尺寸做适配。如在开发组件时，有时需要考虑处理横竖屏适配问题。一般做法，在横竖屏发生变化时，需要将组件销毁后再重新生成。而在组件中会对其进行相关事件绑定，如果在销毁组件时，没有将组件的事件解绑，在横竖屏发生变化时，就会不断地对组件进行事件绑定。这样会导致一些异常，甚至可能会导致页面崩掉。
 
-### 实例------>[demos/callbacks.html](./demos/callbacks.html)
+### 实例------>[demos/callbacks.html](./images/demos/callbacks.html)
 
 ```html
 <!DOCTYPE html>
@@ -532,7 +532,7 @@ setTimeout(function() {
 4. 执行一次CG
 5. 停止记录
 
-![callbacks](./callback.png)
+![callbacks](./images/callback.png)
 
 如分析结果所示，在窗口大小变化时，会不断地对`container`添加代理事件。
 
@@ -561,14 +561,14 @@ setTimeout(function() {
     resizeCallback(true);
 ```
 在Devtools–>Performance中再重复上述操作，分析结果如下：
-![callback](./callback1.png)
+![callback](./images/callback1.png)
 
 在开发中，开发者很少关注事件解绑，因为浏览器已经为我们处理得很好了。不过在使用第三方库时，需要特别注意，因为一般第三方库都实现了自己的事件绑定，如果在使用过程中，在需要销毁事件绑定时，没有调用所解绑方法，就可能造成事件绑定数量的不断增加。如下链接是我在项目中使用jquery，遇见到类似问题：[jQuery中忘记解绑注册的事件，造成内存泄露➹猛击😊](http://123fe.cn/2017/11/01/%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E4%B9%8BListeners/)
 
 
 ## 总结
 
-本文主要介绍了几种常见的内存泄露。在开发过程，需要我们特别留意一下本文所涉及到的几种内存泄露问题。因为这些随时可能发生在我们日常开发中，如果我们对它们不了解是很难发现它们的存在。可能在它们将问题影响程度放大时，才会引起我们的关注。不过那时可能就晚了，因为产品可能已经上线，接着就会严重影响产品的质量和用户体验，甚至可能让我们承受大量用户流失的损失。作为开发我们必须把好这个关，让我们开发的产品带给用户最好的体验。
+本文主要介绍了几种常见的内存泄露。在开发过程，需要我们特别留意一下本文所涉及到的几种内存泄露问题。因为这些随时可能发生在我们日常开发中，如果我们对它们不了解是很难发现它们的存在。可能在它们将问题影响程度放大时，才会引起我们的关注。不过那时可能就晚了，因为产品可能已经上线，接着就会严重影响产品的质量和用户体验，甚至可能让我们承受大量用户流失的损失。作为开发的我们必须把好这个关，让我们开发的产品带给用户最好的体验。
 
 
 
