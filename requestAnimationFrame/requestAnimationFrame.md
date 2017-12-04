@@ -102,7 +102,8 @@ requestAnimationFrame(animation);
 
 ### [兼容性：](https://caniuse.com/#feat=requestanimationframe)
 
-<iframe height='540' title='caniuse-requestAnimationFrame' src='https://caniuse.com/#feat=requestanimationframe' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'></iframe>
+![compat](./images/compat.png)
+
 
 ### [polyfill：](https://gist.github.com/paulirish/1579671)
 
