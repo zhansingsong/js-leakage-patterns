@@ -6,6 +6,7 @@
 - [IE<8循环引用导致的内存泄露](./IE<8循环引用导致的内存泄露/IE<8循环引用导致的内存泄露.md)
 - [内存泄露之jQuery.cache](./内存泄露之jQuery.cache/内存泄露之jQuery.cache.md)
 - [内存泄露之Listeners](./内存泄露之Listeners/内存泄露之Listeners.md)
+- [requestAnimationFrame](./requestAnimationFrame/requestAnimationFrame.md)
 
 
 ####  <u style="color:#ab2251"> :no_entry:声明: 本资料仅供学习交流! 如需转载，请注明出处。</u>
