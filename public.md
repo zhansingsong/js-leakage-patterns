@@ -273,7 +273,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 
 ## DOM泄露
 
-在JavaScript中，DOM操作是非常耗时的。因为JavaScript/ECMAScript引擎独立于渲染引擎，而DOM是位于渲染引擎，相互访问需要消耗一定的资源。如Chrome浏览器中DOM位于WebCore，而JavaScript/ECMAScript位于V8中。假如将JavaScript/ECMAScript、DOM分别想象成两座孤岛，两岛之间通过一座收费桥连接，过桥需要交纳一定“过桥费”。JavaScript/ECMAScript每次访问DOM时，都需要交纳“过桥费”。因此访问DOM次数越多，费用越高，页面性能就会受到很大影响。[了解更多:information_source:](http://www.phpied.com/dom-access-optimization/)
+在JavaScript中，DOM操作是非常耗时的。因为JavaScript/ECMAScript引擎独立于渲染引擎，而DOM是位于渲染引擎，相互访问需要消耗一定的资源。如Chrome浏览器中DOM位于WebCore，而JavaScript/ECMAScript位于V8中。假如将JavaScript/ECMAScript、DOM分别想象成两座孤岛，两岛之间通过一座收费桥连接，过桥需要交纳一定“过桥费”。JavaScript/ECMAScript每次访问DOM时，都需要交纳“过桥费”。因此访问DOM次数越多，费用越高，页面性能就会受到很大影响。[了解更多ℹ️](http://www.phpied.com/dom-access-optimization/)
 
 ![](http://www.phpied.com/wp-content/uploads/2009/12/domlandia.png)
 
