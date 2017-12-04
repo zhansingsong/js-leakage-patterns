@@ -74,7 +74,7 @@ function foo(arg) {
 
 在传递给`console.log`的对象是不能被垃圾回收 ♻️，因为在代码运行之后需要在开发工具能查看对象信息。所以最好不要在生产环境中`console.log`任何对象。
 
-### 实例------>[demos/log.html](./demos/log.html)
+### 实例------>[demos/log.html](https://github.com/zhansingsong/js-leakage-patterns/blob/master/demos/log.html)
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -172,7 +172,7 @@ bar()// 返回 'hello closure!'
 
 <u>**由于闭包会携带包含它的函数的作用域，因此会比其他函数占用更多的内存。过度使用闭包可能会导致内存占用过多。**</u>
 
-### 实例------>[demos/closures.html](./demos/closures.html)
+### 实例------>[demos/closures.html](https://github.com/zhansingsong/js-leakage-patterns/blob/master/demos/closures.html)
 
 ```html
 <!DOCTYPE html>
@@ -277,7 +277,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 
 为了减少DOM访问次数，一般情况下，当需要多次访问同一个DOM方法或属性时，会将DOM引用缓存到一个局部变量中。<u>但如果在执行某些删除、更新操作后，可能会忘记释放掉代码中对应的DOM引用，这样会造成DOM内存泄露。</u>
 
-### 实例------>[demos/dom.html](./demos/dom.html)
+### 实例------>[demos/dom.html](https://github.com/zhansingsong/js-leakage-patterns/blob/master/demos/dom.html)
 
 ```html
 <!DOCTYPE html>
@@ -357,7 +357,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 
 ![dom](https://raw.githubusercontent.com/zhansingsong/js-leakage-patterns/master/images/dom3.png)
 
-### 小试牛刀------>[demos/dom_practice.html](./demos/dom_practice.html)
+### 小试牛刀------>[demos/dom_practice.html](https://github.com/zhansingsong/js-leakage-patterns/blob/master/demos/dom_practice.html)
 
 再来看看网上的一个实例，代码如下：
 
@@ -410,7 +410,7 @@ setTimeout(function() {
 
 如果在不需要`setInterval()`时，没有通过`clearInterval()`方法移除，那么`setInterval()`会不停地调用函数，直到调用`clearInterval()`或窗口关闭。如果链式`setTimeout()`调用模式没有给出终止逻辑，也会一直运行下去。因此再不需要重复定时器时，确保对定时器进行清除，避免占用系统资源。另外，在使用`setInterval()`和`setTimeout()`来实现动画时，无法确保定时器按照指定的时间间隔来执行动画。为了能在JavaScript中创建出平滑流畅的动画，浏览器为JavaScript动画添加了一个新API-requestAnimationFrame()。[关于setInterval、setTimeout与requestAnimationFrame实现动画上的区别➹猛击😊](https://github.com/zhansingsong/js-leakage-patterns/blob/master/requestAnimationFrame/requestAnimationFrame.md)
 
-### 实例------>[demos/timers.html](./demos/timers.html)
+### 实例------>[demos/timers.html](https://github.com/zhansingsong/js-leakage-patterns/blob/master/demos/timers.html)
 
 如下通过`setInterval()`实现一个clock的小实例，不过代码存在问题的，有兴趣的同学可以先尝试找一下问题的所在~~~~~😎
 操作：
@@ -500,7 +500,7 @@ setTimeout(function() {
 
 做移动开发时，需要对不同设备尺寸做适配。如在开发组件时，有时需要考虑处理横竖屏适配问题。一般做法，在横竖屏发生变化时，需要将组件销毁后再重新生成。而在组件中会对其进行相关事件绑定，如果在销毁组件时，没有将组件的事件解绑，在横竖屏发生变化时，就会不断地对组件进行事件绑定。这样会导致一些异常，甚至可能会导致页面崩掉。
 
-### 实例------>[demos/callbacks.html](./demos/callbacks.html)
+### 实例------>[demos/callbacks.html](https://github.com/zhansingsong/js-leakage-patterns/blob/master/demos/callbacks.html)
 
 ```html
 <!DOCTYPE html>
