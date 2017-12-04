@@ -100,12 +100,12 @@ requestAnimationFrame(animation);
 
  
 
-### [兼容性：](https://caniuse.com/#feat=requestanimationframe)
+### [兼容性：](https://caniuse.com/#feat=requestanimationframe):information_source:
 
 ![compat](./images/compat.png)
 
 
-### [polyfill：](https://gist.github.com/paulirish/1579671)
+### [polyfill：](https://gist.github.com/paulirish/1579671):information_source:
 
 ```js
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
