@@ -591,11 +591,7 @@ setTimeout(function() {
 
 
 ## 参考文章：
-- [Circular Memory Leak Mitigation](https://msdn.microsoft.com/en-us/library/dd361842(v=vs.85).aspx)
-- [DOM: why is this a memory leak?](https://stackoverflow.com/questions/15761094/dom-why-is-this-a-memory-leak)
-- [Internet Explorer Event Handler Leaks](http://www.reigndropsfall.net/2011/01/05/internet-explorer-event-handler-leaks/)
-- [Avoiding leaks in JavaScript XPCOM components](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Guide/Avoiding_leaks_in_JavaScript_components)
-- [JScript Memory Leaks](http://www.crockford.com/javascript/memory/leak.html)
+
 - [An interesting kind of JavaScript memory leak](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)
 - [Memory Leaks in Microsoft Internet Explorer](http://isaacschlueter.com/2006/10/msie-memory-leaks/trackback/index.html)
 - [Memory leak when logging complex objects](https://stackoverflow.com/questions/12996129/memory-leak-when-logging-complex-objects)
