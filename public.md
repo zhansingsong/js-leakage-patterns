@@ -385,7 +385,7 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
     // #refA不能GC回收，因为存在变量refA对它的引用。将其对#refA引用释放，但还是无法回收#refA。
     refA = null;
 
-    // 还存在变量refB对#refA的间接引用(refB引用了#refB，而#refB属于#refA)。将变量refB对#refB的引用释放，refA就可以被GC回收。
+    // 还存在变量refB对#refA的间接引用(refB引用了#refB，而#refB属于#refA)。将变量refB对#refB的引用释放，#refA就可以被GC回收。
     refB = null;
   </script>
 </body>
