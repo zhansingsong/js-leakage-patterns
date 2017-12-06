@@ -296,24 +296,46 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
   <title>Dom-Leakage</title>
 </head>
 <body>
-  <input type="button" value="remove" class="remove">
+  <input type="button" value="remove" class="remove" style="display:none;">
   <input type="button" value="add" class="add">
 
   <div class="container">
     <pre class="wrapper"></pre>
   </div>
   <script>
-    // 因为要多次用到<pre>节点，将其缓存到本地变量wrapper中，
+    // 因为要多次用到pre.wrapper、div.container、input.remove、input.add节点，将其缓存到本地变量中，
     var wrapper = document.querySelector('.wrapper');
+    var container = document.querySelector('.container');
+    var removeBtn = document.querySelector('.remove');
+    var addBtn = document.querySelector('.add');
     var counter = 0;
-
-    document.querySelector('.remove').addEventListener('click', function () {
-      document.querySelector('.container').removeChild(wrapper);
-    }, false);
-
-    document.querySelector('.add').addEventListener('click', function () {
+    var once = true;
+    // 方法
+    var hide = function(target){
+      target.style.display = 'none';
+    }
+    var show = function(target){
+      target.style.display = 'inline-block';
+    }
+    // 回调函数
+    var removeCallback = function(){
+      removeBtn.removeEventListener('click', removeCallback, false);
+      addBtn.removeEventListener('click', addCallback, false);
+      hide(addBtn);
+      hide(removeBtn);
+      container.removeChild(wrapper);
+    }
+    var addCallback = function(){
       wrapper.appendChild(document.createTextNode('\t' + ++counter + '：a new line text\n'));
-    }, false);
+      // 显示删除操作按钮
+      if(once){
+        show(removeBtn);
+        once = false;
+      }
+    }
+    // 绑定事件
+    removeBtn.addEventListener('click', removeCallback, false);
+    addBtn.addEventListener('click', addCallback, false);
   </script>
 </body>
 </html>
@@ -347,18 +369,41 @@ getData()和unused()内部函数共享f函数对应的变量对象，因为unuse
 从分析结果图可知，导致整个pre元素和6个文本节点无法别回收的原因是：代码中存在全局变量`wrapper`对pre元素的引用。知道了产生的问题原因，便可对症下药了。对代码做如下就修改：
 
 ```js
-    // 因为要多次用到<pre>节点，将其缓存到本地变量wrapper中，
+    // 因为要多次用到pre.wrapper、div.container、input.remove、input.add节点，将其缓存到本地变量中，
     var wrapper = document.querySelector('.wrapper');
+    var container = document.querySelector('.container');
+    var removeBtn = document.querySelector('.remove');
+    var addBtn = document.querySelector('.add');
     var counter = 0;
-
-    document.querySelector('.remove').addEventListener('click', function () {
-      document.querySelector('.container').removeChild(wrapper);
+    var once = true;
+    // 方法
+    var hide = function(target){
+      target.style.display = 'none';
+    }
+    var show = function(target){
+      target.style.display = 'inline-block';
+    }
+    // 回调函数
+    var removeCallback = function(){
+      removeBtn.removeEventListener('click', removeCallback, false);
+      addBtn.removeEventListener('click', addCallback, false);
+      hide(addBtn);
+      hide(removeBtn);
+      container.removeChild(wrapper);
+     
       wrapper = null;//在执行删除操作时，将wrapper对pre节点的引用释放掉
-    }, false);
-
-    document.querySelector('.add').addEventListener('click', function () {
+    }
+    var addCallback = function(){
       wrapper.appendChild(document.createTextNode('\t' + ++counter + '：a new line text\n'));
-    }, false);
+      // 显示删除操作按钮
+      if(once){
+        show(removeBtn);
+        once = false;
+      }
+    }
+    // 绑定事件
+    removeBtn.addEventListener('click', removeCallback, false);
+    addBtn.addEventListener('click', addCallback, false);
 ```
 在执行删除操作时，将wrapper对pre节点的引用释放掉，即在删除逻辑中增加`wrapper = null;`语句。再次在Devtools–>Performance中重复上述操作：
 

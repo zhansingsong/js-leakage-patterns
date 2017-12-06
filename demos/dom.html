@@ -7,25 +7,48 @@
   <title>Dom-Leakage</title>
 </head>
 <body>
-  <input type="button" value="remove" class="remove">
   <input type="button" value="add" class="add">
+  <input type="button" value="remove" class="remove" style="display:none;">
 
   <div class="container">
     <pre class="wrapper"></pre>
   </div>
   <script>
-    // 因为要多次用到<pre>节点，将其缓存到本地变量wrapper中，
+    // 因为要多次用到pre.wrapper、div.container、input.remove、input.add节点，将其缓存到本地变量中，
     var wrapper = document.querySelector('.wrapper');
+    var container = document.querySelector('.container');
+    var removeBtn = document.querySelector('.remove');
+    var addBtn = document.querySelector('.add');
     var counter = 0;
-
-    document.querySelector('.remove').addEventListener('click', function () {
-      document.querySelector('.container').removeChild(wrapper);
-      wrapper = null;//在执行删除操作时，将wrapper对pre节点的引用释放掉
-    }, false);
-
-    document.querySelector('.add').addEventListener('click', function () {
+    var once = true;
+    // 方法
+    var hide = function(target){
+      target.style.display = 'none';
+    }
+    var show = function(target){
+      target.style.display = 'inline-block';
+    }
+    // 回调函数
+    var removeCallback = function(){
+      removeBtn.removeEventListener('click', removeCallback, false);
+      addBtn.removeEventListener('click', addCallback, false);
+      hide(addBtn);
+      hide(removeBtn);
+      container.removeChild(wrapper);
+     
+      // wrapper = null;//在执行删除操作时，将wrapper对pre节点的引用释放掉
+    }
+    var addCallback = function(){
       wrapper.appendChild(document.createTextNode('\t' + ++counter + '：a new line text\n'));
-    }, false);
+      // 显示删除操作按钮
+      if(once){
+        show(removeBtn);
+        once = false;
+      }
+    }
+    // 绑定事件
+    removeBtn.addEventListener('click', removeCallback, false);
+    addBtn.addEventListener('click', addCallback, false);
   </script>
 </body>
 </html>
