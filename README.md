@@ -29,8 +29,8 @@
 ————[wikipedia](https://zh.wikipedia.org/wiki/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F)
 
 
-**⚠️注：下文中标注的CG是Chrome浏览器中Devtools的【collect garbage】按钮缩写**
-![cg](./images/CG.png)
+**⚠️注：下文中标注的CG是Chrome浏览器中Devtools的【Collect garbage】按钮缩写，表示回收垃圾操作。**
+![cg](https://raw.githubusercontent.com/zhansingsong/js-leakage-patterns/master/images/CG.png)
 
 ## 意外的全局变量
 

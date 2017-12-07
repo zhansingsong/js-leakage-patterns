@@ -8,7 +8,7 @@
 >内存泄漏通常情况下只能由获得程序源代码的程序员才能分析出来。然而，有不少人习惯于把任何不需要的内存使用的增加描述为内存泄漏，即使严格意义上来说这是不准确的。
 ————[wikipedia](https://zh.wikipedia.org/wiki/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F)
 
-**⚠️注：下文中标注的CG是Chrome浏览器中Devtools的【collect garbage】按钮缩写**
+**⚠️注：下文中标注的CG是Chrome浏览器中Devtools的【Collect garbage】按钮缩写，表示回收垃圾操作。**
 ![cg](https://raw.githubusercontent.com/zhansingsong/js-leakage-patterns/master/images/CG.png)
 
 ## 意外的全局变量
