@@ -2,14 +2,14 @@
 
 ![](./images/head.jpg)
 
-> **⚠️注：下文中标注的CG是Chrome浏览器中Devtools的【collect garbage】按钮缩写**
-![cg](./images/CG.png)
 
 ## 什么是内存泄露
 > **内存泄漏**指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失去了对该段内存的控制，从而造成了内存的浪费。
 >内存泄漏通常情况下只能由获得程序源代码的程序员才能分析出来。然而，有不少人习惯于把任何不需要的内存使用的增加描述为内存泄漏，即使严格意义上来说这是不准确的。
 ————[wikipedia](https://zh.wikipedia.org/wiki/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F)
 
+**⚠️注：下文中标注的CG是Chrome浏览器中Devtools的【collect garbage】按钮缩写**
+![cg](https://raw.githubusercontent.com/zhansingsong/js-leakage-patterns/master/images/CG.png)
 
 ## 意外的全局变量
 
