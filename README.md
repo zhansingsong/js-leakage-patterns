@@ -29,6 +29,9 @@
 ————[wikipedia](https://zh.wikipedia.org/wiki/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F)
 
 
+**⚠️注：下文中标注的CG是Chrome浏览器中Devtools的【collect garbage】按钮缩写**
+![cg](./images/CG.png)
+
 ## 意外的全局变量
 
 JavaScript对未声明变量的处理方式：在全局对象上创建该变量的引用(即全局对象上的属性，不是变量，因为它能通过`delete`删除)。如果在浏览器中，全局对象就是**window**对象。
