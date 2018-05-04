@@ -1,13 +1,15 @@
 这是关于JavaScript内存泄露相关的序列文章（整理中……）。由于时间有限更新进度会有点慢，但会持续更新的。自己也在学习中，难免对某些知识点的理解不是很正确，所以才将文章放置github上，一是想与大家分享，二是方便持续更新，三是便于实时修正错误点。也希望看本文的各位同学能多提issues，我会根据提的意见不断完善文章。最后希望各位能从文章中有所收获----->:tada: enjoy reading, enjoy life :whale:
 
 ### 序列文章链接
-
-- [JavaScript内存那点事](./JavaScript内存那点事/JavaScript内存那点事.md)
-- [常见的JavaScript内存泄露](./常见的JavaScript内存泄露/常见的JavaScript内存泄露.md)
-- [IE<8循环引用导致的内存泄露](./IE<8循环引用导致的内存泄露/IE<8循环引用导致的内存泄露.md)
-- [内存泄露之jQuery.cache](./内存泄露之jQuery.cache/内存泄露之jQuery.cache.md)
-- [内存泄露之Listeners](./内存泄露之Listeners/内存泄露之Listeners.md)
-- [requestAnimationFrame](./requestAnimationFrame/requestAnimationFrame.md)
+- JavaScript：
+  - [JavaScript内存那点事](./JavaScript内存那点事/JavaScript内存那点事.md)
+  - [常见的JavaScript内存泄露](./常见的JavaScript内存泄露/常见的JavaScript内存泄露.md)
+  - [IE<8循环引用导致的内存泄露](./IE<8循环引用导致的内存泄露/IE<8循环引用导致的内存泄露.md)
+  - [内存泄露之jQuery.cache](./内存泄露之jQuery.cache/内存泄露之jQuery.cache.md)
+  - [内存泄露之Listeners](./内存泄露之Listeners/内存泄露之Listeners.md)
+  - [requestAnimationFrame](./requestAnimationFrame/requestAnimationFrame.md)
+- CSS:
+  - [浏览器渲染简述](./浏览器渲染简述/浏览器渲染简述.md)
 
 
 ####  <u style="color:#ab2251"> :no_entry:声明: 本资料仅供学习交流! 如需转载，请注明出处。</u>
