@@ -76,7 +76,7 @@ JPEG 2000, JPEG XR, 和 WebP 与传统的 JPEG、PNG 相比具有高压缩比、
 
 服务端要动态支持 WebP，可以由代理服务器 Nginx，或 Backend 来完成。
 
-> singsong:图片处理逻辑最好交给下游 Backend 来完成，NGINX 就负责转发即可。当然也有自动处理图片 nginx ：[ngx_pagespeed](https://github.com/apache/incubator-pagespeed-ngx)
+> singsong：图片处理逻辑最好交给下游 Backend 来完成，NGINX 就负责转发即可。当然也有自动处理图片 nginx ：[ngx_pagespeed](https://github.com/apache/incubator-pagespeed-ngx)
 
 ### Nginx 处理
 
@@ -86,7 +86,7 @@ JPEG 2000, JPEG XR, 和 WebP 与传统的 JPEG、PNG 相比具有高压缩比、
 image/webp  webp;
 ```
 
-2. 获取请求头 `Accept` 字段中的 `webp`
+1. 获取请求头 `Accept` 字段中的 `webp`
 
 ```js
 map $http_accept $webp_suffix {
