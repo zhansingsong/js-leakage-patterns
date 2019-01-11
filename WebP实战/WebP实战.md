@@ -70,13 +70,13 @@ JPEG 2000, JPEG XR, 和 WebP 与传统的 JPEG、PNG 相比具有高压缩比、
 对比两种处理方式，通过服务端来支持 WebP 具有如下优势:
 
 - 提前知道客户端是否支持 WebP。处理更灵活，更可靠。而客户端还需要根据是否支持 WebP，对链接做额外的替换处理。
-- 动态支持 WebP。如果支持 WebP， 查看本地是否有对应 WebP 图片，如果没有动态生成响应。
+- 动态支持 WebP。如果支持 WebP，查看本地是否有对应 WebP 图片，如果没有动态生成响应。
 
 ## 服务端动态支持 WebP
 
 服务端要动态支持 WebP，可以由代理服务器 Nginx，或 Backend 来完成。
 
-> singsong：图片处理逻辑最好交给下游 Backend 来完成，NGINX 就负责转发即可。当然也有自动处理图片 nginx ：[ngx_pagespeed](https://github.com/apache/incubator-pagespeed-ngx)
+> singsong：图片处理逻辑最好交给下游 Backend 来完成，NGINX 就负责转发即可。当然也有自动处理图片 nginx ：[ngx_pagespeed](https://github.com/apache/incubator-pagespeed-ngx)
 
 ### Nginx 处理
 
@@ -95,7 +95,7 @@ map $http_accept $webp_suffix {
 }
 ```
 
- 这里使用 map(更多参考[ngx_http_map_module](http://nginx.org/en/docs/http/ngx_http_map_module.html))定义了一个`$webp_suffix`变量，如果 WebP 存在，`$webp_suffix`值为`".webp"`，否则为空字符串。
+这里使用 map(更多参考[ngx_http_map_module](http://nginx.org/en/docs/http/ngx_http_map_module.html))定义了一个`$webp_suffix`变量，如果 WebP 存在，`$webp_suffix`值为`".webp"`，否则为空字符串。
 
 3. 输出图片
 
@@ -345,4 +345,4 @@ module.exports = async ctx => {
 
 ## 总结
 
-本文是自己在使用 WebP 的一些心得总结。主要对 WebP 的使用做个简单介绍。至于为什么要用 WebP，本文也做了相关介绍。但这并不代表 WebP 没有缺点。如在编解码效率上就存在不足。不过随着硬件设备的提升，这也在可接受范围内。随着移动互联网的快速发展，PWA(Progressive Web App)必成为 Web App 的主流。而 WebP 是 PWA 一个组成部分，了解并支持 WebP 已成大趋势。目前很多主流的站点已全站或部分支持 WebP。
+本文是自己在使用 WebP 的一些心得总结。主要对 WebP 的使用做个简单介绍。至于为什么要用 WebP，本文也做了相关介绍。但这并不代表 WebP 没有缺点。如在编解码效率上就存在不足。不过随着硬件设备的提升，这也在可接受范围内。随着移动互联网的快速发展，PWA(Progressive Web App)必成为 Web App 的主流。而 WebP 是 PWA 一个组成部分，了解并支持 WebP 已成大趋势。目前很多主流的站点已全站或部分支持 WebP。
