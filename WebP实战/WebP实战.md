@@ -76,7 +76,7 @@ JPEG 2000, JPEG XR, 和 WebP 与传统的 JPEG、PNG 相比具有高压缩比、
 
 服务端要动态支持 WebP，可以由代理服务器 Nginx，或 Backend 来完成。
 
-> singsong: 图片处理逻辑最好交给下游 Backend 来完成，NGINX 就负责转发即可。当然也有自动  处理图片 nginx ：[ngx_pagespeed](https://github.com/apache/incubator-pagespeed-ngx)
+> singsong:图片处理逻辑最好交给下游 Backend 来完成，NGINX 就负责转发即可。当然也有自动处理图片 nginx ：[ngx_pagespeed](https://github.com/apache/incubator-pagespeed-ngx)
 
 ### Nginx 处理
 
@@ -101,13 +101,13 @@ map $http_accept $webp_suffix {
 
    - 查看是否存在`.webp`的文件，如果存在就直接输出。
    - 查看是否存在请求文件，如果存在就直接输出。
-   - 如果上述文件都不存在，就  响应`404`。
+   - 如果上述文件都不存在，就响应`404`。
 
 ```bash
     try_files $uri$webp_suffix $uri =404;
 ```
 
-这里  还可以将响应操作反代理  给 Backend：
+这里还可以将响应操作反代理给 Backend：
 
 ```bash
     if ($http_accept ~* "webp")    { set $webp_accept "true"; }
@@ -345,4 +345,4 @@ module.exports = async ctx => {
 
 ## 总结
 
-本文  是自己在使用 WebP 的一些心得总结。主要对 WebP 的使用做个简单介绍。 至于为什么要用 WebP，本文也做了  相关介绍。但这并不代表 WebP 没有缺点。如在编解码效率上就存在不足。不过随着硬件设备的提升，这也在可接受范围内。随着移动互联网的快速发展，PWA(Progressive Web App)必成为 Web App 的主流。而  WebP 是 PWA 一个组成部分，了解并支持 WebP 已成大趋势。目前很多  主流的  站点已全站或部分支持 WebP。
+本文是自己在使用 WebP 的一些心得总结。主要对 WebP 的使用做个简单介绍。至于为什么要用 WebP，本文也做了相关介绍。但这并不代表 WebP 没有缺点。如在编解码效率上就存在不足。不过随着硬件设备的提升，这也在可接受范围内。随着移动互联网的快速发展，PWA(Progressive Web App)必成为 Web App 的主流。而 WebP 是 PWA 一个组成部分，了解并支持 WebP 已成大趋势。目前很多主流的站点已全站或部分支持 WebP。
