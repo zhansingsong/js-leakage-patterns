@@ -80,7 +80,7 @@ JPEG 2000, JPEG XR, 和 WebP 与传统的 JPEG、PNG 相比具有高压缩比、
 
 ### Nginx 处理
 
-1. 确保`mime.types`中有 WebP。因为如果没有 WebP 类型，WebP 图片会作为`application/octet-stream` 输出。
+1. 确保`mime.types`中有 WebP。因为如果没有 WebP 类型，WebP 图片会作为`application/octet-stream` 输出。
 
 ```bash
 image/webp  webp;
