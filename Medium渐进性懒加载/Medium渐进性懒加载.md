@@ -12,7 +12,7 @@
 - [SQIP – SVG-Based Image Placeholder](https://github.com/technopagan/sqip)
 
   ![lqip-sqip](./images/lqip-sqip.png)
-  
+
 - [Facebook’s 200 bytes 技术](https://code.fb.com/android/the-technology-behind-preview-photos/)
 
   > the final format became one byte for version number, one byte each for width and height, and finally the approximately 200 byte payload. The server would just send this format as part of the GraphQL response, and then the client could simply append the JPEG body to the predefined JPEG header, patch the width and height, and treat it as a regular JPEG image. After the standard JPEG decoding, the client could run the predetermined Gaussian blur and scale it to fit the window size. [The technology behind preview photos](https://code.fb.com/android/the-technology-behind-preview-photos/)
@@ -88,9 +88,7 @@
 ```html
 <figure>
   <!-- 容器限制高宽：800*400 -->
-  <div
-    style="position:relative; max-width: 800px; max-height: 400px; width: 100%;"
-  >
+  <div style="position:relative; max-width: 800px; max-height: 400px; width: 100%;">
     <!-- 撑开高 -->
     <div style="padding-bottom: 50%;"></div>
      <!-- progressive-img容器 -->
@@ -103,7 +101,7 @@
       <img src="https://www.zhansingsong.com/public/imgs/webp.png" class="js-image" style="position: absolute; height: 100%; width: 100%; visibility: hidden; opacity: 0; transition: opacity .4s ease-in, visibility .4s;" crossorigin="anonymous"/>
       <!-- 不支持JS的回退方案 -->
       <noscript></noscript>
-    </div>  
+    </div>
   </div>
 </figure>
 ```
@@ -119,7 +117,7 @@
   <img src="https://www.zhansingsong.com/public/imgs/webp.png" class="js-image" style="position: absolute; height: 100%; width: 100%; visibility: hidden; opacity: 0; transition: opacity .4s ease-in, visibility .4s;" crossorigin="anonymous"/>
   <!-- 不支持JS的回退方案 -->
   <noscript></noscript>
-</div>  
+</div>
 ```
 
 为什么这里 Medium 要选择使用 canvas，而不直接使用`img`呢？原因可能有如下两点：
