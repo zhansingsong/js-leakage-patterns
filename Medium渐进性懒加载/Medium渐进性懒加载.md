@@ -132,7 +132,7 @@
 
 到这里，结构样式也已完成。接下来注入 JavaScript 逻辑。实现思路也很简单：
 
-- 加载缩略图，并将其写入 canvas，在对其使用 blur 效果。
+- 加载缩略图，并将其写入 canvas，再对其使用 blur 效果。
 - 在原图加载完后，显示原图。这里可以配合懒加载，再加上一些过滤效果，可以让体验更加友好。
 
 ```js
@@ -178,7 +178,7 @@ image.onload = () => {
 <iframe height='265' scrolling='no' title='browser blur' src='//codepen.io/zhansingsong/embed/KbbVwW/?height=265&theme-id=0&default-tab=html,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/KbbVwW/'>browser blur</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
-但并不是所有图片都需要这种效果，如二维码图片可能就不需要这种渲染效果。不过可以参考如下方式关闭：
+但并不是所有图片都需要这种效果，如二维码图片可能就不需要这种渲染效果。可以参考如下方式关闭：
 
 - [How to prevent Chrome from blurring small images when zoomed in?](http://superuser.com/questions/530317/how-to-prevent-chrome-from-blurring-small-images-when-zoomed-in)
 - [image-rendering: pixelated(the browser would render it in a way that didn’t make it look blocky)](https://developers.google.com/web/updates/2015/01/pixelated)
