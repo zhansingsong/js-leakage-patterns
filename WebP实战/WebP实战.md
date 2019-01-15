@@ -86,7 +86,7 @@ JPEG 2000, JPEG XR, 和 WebP 与传统的 JPEG、PNG 相比具有高压缩比、
 image/webp  webp;
 ```
 
-1. 获取请求头 `Accept` 字段中的 `webp`
+2. 获取请求头 `Accept` 字段中的 `webp`
 
 ```js
 map $http_accept $webp_suffix {
