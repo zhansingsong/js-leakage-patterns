@@ -2,8 +2,9 @@
 
 ![Medium progressive image loading](./images/p-img-loading.png)
 
-一直对 [Medium](https://medium.com/) 的渐进性图片加载颇感兴趣，最近有时间折腾了一下，并在自己的 [blog 站点](https://www.zhansingsong.com)实践了一下，体验效果还是不错滴 😆。虽然之前对其实现思路有个大概的了解，但当自己深入研究后，发现还是有些值得探讨的技术点。如缩略图的支持、模糊效果处理、如何撑开缩略图等。
-
+一直对 [Medium](https://medium.com/) 的渐进性图片加载颇感兴趣，刚好最近有时间折腾了一下🤘。小有收获，并在自己的 [blog 站点](https://www.zhansingsong.com)实践了一下，总体体验还是不错滴😆。虽然之前对其实现思路有个大概的了解，但当自己深入研究后，发现还是有些值得探讨的技术点。如缩略图的支持、模糊效果处理、如何撑开缩略图等。
+> singsong: blog 站点的渐进性图片加载并未完全按照 Medium 的实现方式，在其基础上稍微做了一些调整。不过整体效果基本上是一样滴。
+<!-- more -->
 ## 缩略图的支持
 
 要实现渐进性图片加载，前提是需要后端对缩略图提供支持。关于缩略图的支持，之前自己写了一篇文章做了些介绍：[WebP 实战](https://www.zhansingsong.com/articles/5c34b552430eec101e95d405)，感兴趣的同学可以自行查看。另外，其他相关技术可以参考如下文章:
@@ -168,14 +169,14 @@ image.onload = () => {
 
 这里 blur 效果是使用 [stackBlur](http://www.quasimondo.com/StackBlurForCanvas/StackBlurDemo.html) 完成的。完整实例代码：
 
-<iframe height='265' scrolling='no' title='progressive-image-loading' src='//codepen.io/zhansingsong/embed/GPwGMy/?height=265&theme-id=0&default-tab=js,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/GPwGMy/'>progressive-image-loading</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
+<iframe height='265' scrolling='no' title='Medium loading image effect' src='//codepen.io/zhansingsong/embed/preview/GPwGMy/?height=265&theme-id=0&default-tab=html,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/GPwGMy/'>Medium loading image effect</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
 ## 其他 blur 效果
 
 当浏览器渲染被放大的缩略图时，为了不让用户看见像素块化图片，会应用一些模糊效果让其看起来更加平滑。所以，如果浏览器默认 blur 效果刚好满足你的需要，就不需要做额外的处理。
 
-<iframe height='265' scrolling='no' title='browser blur' src='//codepen.io/zhansingsong/embed/KbbVwW/?height=265&theme-id=0&default-tab=html,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/KbbVwW/'>browser blur</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
+<iframe height='265' scrolling='no' title='browser default blur render' src='//codepen.io/zhansingsong/embed/preview/KbbVwW/?height=265&theme-id=0&default-tab=css,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/KbbVwW/'>browser default blur render</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
 但并不是所有图片都需要这种效果，如二维码图片可能就不需要这种渲染效果。可以参考如下方式关闭：
@@ -183,12 +184,12 @@ image.onload = () => {
 - [How to prevent Chrome from blurring small images when zoomed in?](http://superuser.com/questions/530317/how-to-prevent-chrome-from-blurring-small-images-when-zoomed-in)
 - [image-rendering: pixelated(the browser would render it in a way that didn’t make it look blocky)](https://developers.google.com/web/updates/2015/01/pixelated)
 
-<iframe height='265' scrolling='no' title='turn off browser blur' src='//codepen.io/zhansingsong/embed/maaVJN/?height=265&theme-id=0&default-tab=html,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/maaVJN/'>turn off browser blur</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
+<iframe height='265' scrolling='no' title='turn off browser blur' src='//codepen.io/zhansingsong/embed/preview/maaVJN/?height=265&theme-id=0&default-tab=css,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/maaVJN/'>turn off browser blur</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
 blur 效果也可使用 [CSS Filter](http://codepen.io/aniketpant/pen/DsEve)。[除了 IE 不支持外，其他浏览器都支持](http://caniuse.com/#feat=css-filters)。
 
-<iframe height='265' scrolling='no' title='css Filter' src='//codepen.io/zhansingsong/embed/WLLrro/?height=265&theme-id=0&default-tab=html,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/WLLrro/'>css Filter</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
+<iframe height='265' scrolling='no' title='css Filter' src='//codepen.io/zhansingsong/embed/preview/WLLrro/?height=265&theme-id=0&default-tab=css,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/WLLrro/'>css Filter</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
 另外，还可以使用 [SVG filter](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter)：
@@ -196,7 +197,7 @@ blur 效果也可使用 [CSS Filter](http://codepen.io/aniketpant/pen/DsEve)。[
 - [The “Blur Up” Technique for Loading Background Images](https://css-tricks.com/the-blur-up-technique-for-loading-background-images/)
 - [Textured Gradients in Pure CSS](http://rentafounder.com/textured-gradients-in-pure-css/)
 
-<iframe height='265' scrolling='no' title='SVG filter' src='//codepen.io/zhansingsong/embed/VqqeQZ/?height=265&theme-id=0&default-tab=html,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/VqqeQZ/'>SVG filter</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
+<iframe height='265' scrolling='no' title='SVG filter' src='//codepen.io/zhansingsong/embed/preview/VqqeQZ/?height=265&theme-id=0&default-tab=css,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/zhansingsong/pen/VqqeQZ/'>SVG filter</a> by zhansingsong (<a href='https://codepen.io/zhansingsong'>@zhansingsong</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
 ## 其他相关加载技术
